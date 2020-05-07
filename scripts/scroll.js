@@ -27,10 +27,9 @@ const scroll = (ev)=>{
 			top: window.pageYOffset,
 			end: window.pageYOffset + window.innerHeight
 		};
-		move = (top.end - preLocation.top) / (speed*5);
-		if(move < 1 && move > 1) move = 1;
+		move = (top.start - top.end < 0) ? Math.max((top.end - preLocation.top) / (speed*5), 2):Math.min((top.end - preLocation.top) / (speed*5), -2)
 		window.scrollBy(0, move);
-		if(top.start - top.end > 0 ? preLocation.top > top.end:preLocation.top < top.end && preLocation.end < document.body.clientHeight){
+		if(top.start - top.end > 0 ? preLocation.top >= top.end:preLocation.top <= top.end && preLocation.end < document.body.clientHeight){
 			requestAnimationFrame(start);
 		}
 	}
